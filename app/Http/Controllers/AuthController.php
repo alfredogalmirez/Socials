@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -11,7 +14,46 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|string|max:255|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
 
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        Auth::login($user);
+
+        return redirect()->route('dashboard')->with('success', 'Welcome ' . $user->name . '!');
+    }
+
+    public function loginForm()
+    {
+        return view('auth.login');
+    }
+
+    public function login(Request $request){
+
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        $user = User::where('email', $validated['email'])->first();
+
+        if($user && Hash::check($validated['password'], $user->password)){
+            Auth::login($user);
+            return redirect()->route('dashboard');
+        } else {
+            return back()->withErrors([
+                'email' => 'Invalid credentials',
+            ]);
+        }
     }
 }
