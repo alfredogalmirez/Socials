@@ -38,7 +38,8 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
         $validated = $request->validate([
             'email' => 'required|email',
@@ -47,7 +48,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $validated['email'])->first();
 
-        if($user && Hash::check($validated['password'], $user->password)){
+        if ($user && Hash::check($validated['password'], $user->password)) {
             Auth::login($user);
             return redirect()->route('dashboard');
         } else {
@@ -55,5 +56,14 @@ class AuthController extends Controller
                 'email' => 'Invalid credentials',
             ]);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login.form')->with('success', 'Logged out successfuly!');
     }
 }
