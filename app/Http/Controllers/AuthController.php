@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,7 +31,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Welcome ' . $user->name . '!');
+        return redirect()->route('home')->with('success', 'Welcome ' . $user->name . '!');
     }
 
     public function loginForm()
@@ -50,7 +51,7 @@ class AuthController extends Controller
 
         if ($user && Hash::check($validated['password'], $user->password)) {
             Auth::login($user);
-            return redirect()->route('dashboard');
+            return redirect()->route('home');
         } else {
             return back()->withErrors([
                 'email' => 'Invalid credentials',
@@ -64,6 +65,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login.form')->with('success', 'Logged out successfuly!');
+        return redirect()->route('login')->with('success', 'Logged out successfuly!');
     }
 }

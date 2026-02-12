@@ -11,10 +11,10 @@
 <body>
     <div class="flex min-h-screen w-full">
         <aside class="w-20 md:w-64 h-screen sticky top-0 border-r border-gray-200">
-            <x-navbar class="w-full" />
+            <x-sidebar class="w-full" />
         </aside>
 
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-6 overflow-y-auto">
             {{ $slot }}
         </main>
 

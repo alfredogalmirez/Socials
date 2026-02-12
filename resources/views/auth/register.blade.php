@@ -1,4 +1,4 @@
-<x-layout>
+<x-auth>
     <div class="flex h-screen">
 
         <div class="hidden md:flex w-1/2 bg-gradient-to-br from-purple-500 to-indigo-600 justify-center items-center">
@@ -40,7 +40,12 @@
                     class="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 rounded transition">
                     Register
                 </button>
+
+                <p class="mt-2">
+                    Already have an account?
+                    <a href="{{ route('login') }}">Login</a>
+                </p>
             </form>
         </div>
     </div>
-</x-layout>
+</x-auth>
