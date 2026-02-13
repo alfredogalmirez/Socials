@@ -20,5 +20,12 @@ class PostController extends Controller
        $validated = $request->validate([
             'content' => 'required|string|max:280|min:1',
        ]);
+
+       Post::create([
+            'user_id' => auth()->user()->id,
+            'content' => $validated['content'],
+       ]);
+
+       return back()->with('success', 'Post created.');
     }
 }
