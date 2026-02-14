@@ -1,9 +1,11 @@
 <x-auth>
     <div class="min-h-screen w-full flex items-center justify-center bg-[#f8fafc] p-4">
 
-        <div class="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-[2.5rem] shadow-bento overflow-hidden border border-slate-100">
+        <div
+            class="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-[2.5rem] shadow-bento overflow-hidden border border-slate-100">
 
-            <div class="hidden md:flex md:w-5/12 bg-gradient-to-br from-accent to-indigo-600 p-12 flex-col justify-between text-white">
+            <div
+                class="hidden md:flex md:w-5/12 bg-gradient-to-br from-accent to-indigo-600 p-12 flex-col justify-between text-white">
                 <div class="text-3xl font-black italic tracking-tighter">S.</div>
 
                 <div>
@@ -11,7 +13,7 @@
                     <p class="mt-4 text-purple-100 font-medium">Experience the new wave of social interaction.</p>
                 </div>
 
-                <div class="text-sm text-purple-200">© 2026 Socials Platform</div>
+                <div class="text-sm text-purple-200">© 2026 Socials Platform by Alfredo Almirez</div>
             </div>
 
             <div class="flex-1 p-8 md:p-16 flex flex-col justify-center">
@@ -21,6 +23,20 @@
 
                     <form action="{{ route('login.login') }}" method="POST" class="space-y-6">
                         @csrf
+
+                        @if ($errors->any())
+                            <div
+                                class="bg-red-300 border border-red-100 text-red-600 px-4 py-3 rounded-2xl flex items-center space-x-2 mb-6 animate-pulse">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <p class="text-sm font-bold uppercase tracking-wide">Invalid credentials. Please try
+                                    again.</p>
+                            </div>
+                        @endif
 
                         <div class="space-y-2">
                             <label class="block text-sm font-bold text-slate-700 ml-1">Email</label>
@@ -43,7 +59,8 @@
 
                         <p class="text-center text-slate-500 text-sm font-medium mt-6">
                             Don't have an account?
-                            <a href="{{ route('register.create') }}" class="text-accent font-bold hover:underline">Join now</a>
+                            <a href="{{ route('register.create') }}" class="text-accent font-bold hover:underline">Join
+                                now</a>
                         </p>
                     </form>
                 </div>
