@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socials</title>
+    <title>{{ $title ?? 'Socials' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
@@ -18,6 +18,8 @@
         <main class="flex-1 p-6">
             {{ $slot }}
         </main>
+
+        <x-flash />
     </div>
 </body>
 

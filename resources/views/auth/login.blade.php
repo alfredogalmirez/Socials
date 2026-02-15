@@ -1,11 +1,11 @@
 <x-auth>
-    <div class="min-h-screen w-full flex items-center justify-center bg-[#f8fafc] p-4">
+    <div class="min-h-screen w-full flex items-center justify-center bg-bento-bg p-4">
 
         <div
             class="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-[2.5rem] shadow-bento overflow-hidden border border-slate-100">
 
             <div
-                class="hidden md:flex md:w-5/12 bg-gradient-to-br from-accent to-indigo-600 p-12 flex-col justify-between text-white">
+                class="hidden md:flex md:w-5/12 bg-linear-to-br from-accent to-indigo-600 p-12 flex-col justify-between text-white">
                 <div class="text-3xl font-black italic tracking-tighter">S.</div>
 
                 <div>
