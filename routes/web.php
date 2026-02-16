@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -13,6 +14,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/comments', [CommentController::class, 'show'])->name('posts.comment.show');
     Route::post('/posts/{post}/likes', [LikeController::class, 'store'])->name('posts.like.store');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comment.store');
+
+    Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile.show');
 
 
 

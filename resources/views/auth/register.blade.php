@@ -15,7 +15,15 @@
                             <label class="block text-sm font-bold text-slate-700 ml-1">Full Name</label>
                             <input type="text" name="name"
                                 class="w-full bg-slate-50 border-none rounded-2xl py-4 px-5 focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-slate-300"
-                                placeholder="John Doe" value="{{ old('name') }}">
+                                placeholder="Juan Dela Cruz" value="{{ old('name') }}">
+                            @error('name') <span class="text-xs text-red-500 ml-1">{{ $message }}</span> @enderror
+                        </div>
+
+                           <div class="space-y-1">
+                            <label class="block text-sm font-bold text-slate-700 ml-1">Username</label>
+                            <input type="text" name="username"
+                                class="w-full bg-slate-50 border-none rounded-2xl py-4 px-5 focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-slate-300"
+                                placeholder="@example" value="{{ old('name') }}">
                             @error('name') <span class="text-xs text-red-500 ml-1">{{ $message }}</span> @enderror
                         </div>
 

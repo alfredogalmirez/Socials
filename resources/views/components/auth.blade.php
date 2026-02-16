@@ -14,6 +14,8 @@
         {{ $slot }}
     </main>
 
+    <x-flash />
+
 </body>
 
 </html>

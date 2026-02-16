@@ -19,12 +19,14 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users|alpha_dash',
             'email' => 'required|email|string|max:255|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
         $user = User::create([
             'name' => $validated['name'],
+            'username' => $validated['username'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
@@ -51,7 +53,7 @@ class AuthController extends Controller
 
         if ($user && Hash::check($validated['password'], $user->password)) {
             Auth::login($user);
-            return redirect()->route('home');
+            return redirect()->route('home')->with('success', 'Welcome back ' . $user->name . '!');
         } else {
             return back()->withErrors([
                 'email' => 'Invalid credentials',

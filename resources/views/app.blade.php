@@ -40,6 +40,7 @@
 
                 <div class="space-y-6">
                     @forelse ($posts as $post)
+
                         <div x-data="{ showReply: false }"
                             class="bg-white rounded-3xl p-6 shadow-bento border border-slate-50 hover:border-purple-100 transition-colors group">
                             <div class="flex items-center mb-4">
@@ -50,7 +51,9 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h4 class="font-bold text-slate-900 leading-none">{{ $post->user->name }}</h4>
+                                    <a href="{{ route('profile.show', $post->user) }}">
+                                        <h4 class="font-bold text-slate-900 leading-none">{{ $post->user->name }}</h4>
+                                    </a>
                                     <span class="text-slate-400 text-sm mt-1">
                                         {{ '@' . Str::slug($post->user->name, '') }}
                                     </span>

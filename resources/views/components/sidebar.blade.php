@@ -6,15 +6,15 @@
     </div>
 
     <nav class="flex-1 w-full space-y-2">
-        <a href="#" class="group flex items-center w-full px-4 py-3.5 bg-accent/10 text-accent rounded-2xl font-bold transition-all hover:bg-accent/20">
+        <a href="{{ route('home') }}" class="group flex items-center w-full px-4 py-3.5 bg-accent/10 text-accent rounded-2xl font-bold transition-all hover:bg-accent/20">
             <span class="flex items-center">
                 <span class="w-1.5 h-1.5 rounded-full bg-accent mr-3"></span>
                 Home
             </span>
         </a>
 
-        <a href="#" class="flex items-center w-full px-4 py-3.5 text-slate-500 hover:text-slate-900 hover:bg-slate-50 rounded-2xl font-semibold transition-all">
-            <span class="flex items-center pl-4">Explore</span>
+        <a href="{{ route('profile.show', auth()->user()->username) }}" class="flex items-center w-full px-4 py-3.5 text-slate-500 hover:text-slate-900 hover:bg-slate-50 rounded-2xl font-semibold transition-all">
+            <span class="flex items-center pl-4">Profile</span>
         </a>
     </nav>
 

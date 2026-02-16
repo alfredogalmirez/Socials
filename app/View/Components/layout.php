@@ -6,14 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class layout extends Component
+class Layout extends Component
 {
+    public $title;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($title = null)
     {
-        //
+        $this->title = $title;
     }
 
     /**
