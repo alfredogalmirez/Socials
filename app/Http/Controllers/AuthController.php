@@ -45,11 +45,11 @@ class AuthController extends Controller
     {
 
         $validated = $request->validate([
-            'email' => 'required|email',
+            'login' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $user = User::where('email', $validated['email'])->first();
+        $user = User::where('email', $validated['login'])->orWhere('username', $validated['login'])->first();
 
         if ($user && Hash::check($validated['password'], $user->password)) {
             Auth::login($user);

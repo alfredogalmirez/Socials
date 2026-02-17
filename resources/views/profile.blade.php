@@ -3,37 +3,49 @@
 
         <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6">
 
-            <div class="md:col-span-1 md:row-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
-                <div class="w-32 h-32 bg-indigo-600 rounded-[2rem] mb-6 flex items-center justify-center text-4xl font-bold text-white shadow-xl shadow-indigo-100 rotate-3">
-                    {{ substr($user->name, 0, 1) }}
+            <div
+                class="md:col-span-1 md:row-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
+                <div
+                    class="w-32 h-32 bg-indigo-600 rounded-[2rem] mb-6 flex items-center justify-center text-4xl font-bold text-white shadow-xl shadow-indigo-100 rotate-3">
+                    @if ($user->avatar)
+                        <img src="{{ asset('storage/' . $user->avatar) }}" class="w-full h-full object-cover">
+                    @else
+                        <span class="text-4xl font-bold text-white">{{ substr($user->name, 0, 1) }}</span>
+                    @endif
+
                 </div>
                 <h2 class="text-2xl font-black text-slate-900 tracking-tight">{{ $user->name }}</h2>
                 <p class="text-indigo-600 font-bold text-sm">{{ '@' . $user->username }}</p>
 
-                @if(auth()->id() === $user->id)
-                    <button class="mt-8 w-full py-4 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg">
+                @if (auth()->id() === $user->id)
+                    <a href="{{ route('profile.edit') }}"
+                        class="mt-8 w-full py-4 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg">
                         Edit Profile
-                    </button>
+                    </a>
                 @else
-                    <button class="mt-8 w-full py-4 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg">
+                    <button
+                        class="mt-8 w-full py-4 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg">
                         Follow
                     </button>
                 @endif
             </div>
 
-            <div class="md:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex items-center justify-around">
+            <div
+                class="md:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex items-center justify-around">
                 <div class="text-center">
                     <span class="block text-4xl font-black text-slate-900">{{ $user->posts->count() }}</span>
                     <span class="text-slate-400 text-[10px] uppercase font-bold tracking-widest">Posts</span>
                 </div>
                 <div class="h-12 w-[1px] bg-slate-100"></div>
                 <div class="text-center">
-                    <span class="block text-4xl font-black text-slate-900">{{ $user->posts->sum(fn($p) => $p->likes->count()) }}</span>
+                    <span
+                        class="block text-4xl font-black text-slate-900">{{ $user->posts->sum(fn($p) => $p->likes->count()) }}</span>
                     <span class="text-slate-400 text-[10px] uppercase font-bold tracking-widest">Total Likes</span>
                 </div>
             </div>
 
-            <div class="md:col-span-1 bg-indigo-600 p-8 rounded-[2.5rem] shadow-xl shadow-indigo-100 text-white flex flex-col justify-center relative overflow-hidden">
+            <div
+                class="md:col-span-1 bg-indigo-600 p-8 rounded-[2.5rem] shadow-xl shadow-indigo-100 text-white flex flex-col justify-center relative overflow-hidden">
                 <div class="absolute -right-4 -top-4 w-20 h-20 bg-white/10 rounded-full"></div>
 
                 <p class="text-indigo-200 text-[10px] uppercase font-black tracking-widest mb-1">Member Since</p>
@@ -49,7 +61,8 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         @forelse($user->posts->take(4) as $post)
-                            <div class="group p-5 rounded-3xl bg-slate-50 hover:bg-white hover:shadow-md hover:ring-1 hover:ring-slate-100 transition-all border border-transparent">
+                            <div
+                                class="group p-5 rounded-3xl bg-slate-50 hover:bg-white hover:shadow-md hover:ring-1 hover:ring-slate-100 transition-all border border-transparent">
                                 <p class="text-slate-600 text-sm font-medium line-clamp-2 leading-relaxed">
                                     {{ $post->content }}
                                 </p>
@@ -61,7 +74,8 @@
                             </div>
                         @empty
                             <div class="col-span-2 text-center py-10">
-                                <p class="text-slate-400 font-medium italic">No activity yet. Time to share something!</p>
+                                <p class="text-slate-400 font-medium italic">No activity yet. Time to share something!
+                                </p>
                             </div>
                         @endforelse
                     </div>

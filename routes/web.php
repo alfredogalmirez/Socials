@@ -15,9 +15,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/likes', [LikeController::class, 'store'])->name('posts.like.store');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comment.store');
 
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile.show');
-
-
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.logout');
 });

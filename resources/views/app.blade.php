@@ -17,8 +17,13 @@
                     <form action="{{ route('posts.store') }}" method="POST">
                         @csrf
                         <div class="flex items-start space-x-4">
-                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=8b5cf6&color=fff"
-                                class="w-12 h-12 rounded-2xl object-cover">
+                            @if (auth()->user()->avatar)
+                                <img src="{{ asset('/storage/' . auth()->user()->avatar) }}"
+                                    class="w-12 h-12 rounded-2xl object-cover">
+                            @else
+                                <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=8b5cf6&color=fff"
+                                    class="w-12 h-12 rounded-2xl object-cover">
+                            @endif
 
                             <textarea name="content"
                                 class="flex-1 border-none focus:ring-0 resize-none text-lg font-normal placeholder-slate-400 min-h-20"
@@ -45,17 +50,24 @@
                             class="bg-white rounded-3xl p-6 shadow-bento border border-slate-50 hover:border-purple-100 transition-colors group">
                             <div class="flex items-center mb-4">
                                 <div class="mr-4 shrink-0">
-                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($post->user->name) }}&background=random"
-                                        alt="{{ $post->user->name }}"
-                                        class="h-12 w-12 rounded-2xl object-cover border border-slate-100">
+                                    @if ($post->user->avatar)
+                                        <img src="{{ asset('/storage/' . $post->user->avatar) }}"
+                                            alt="{{ $post->user->name }}"
+                                            class="h-12 w-12 rounded-2xl object-cover border border-slate-100">
+                                    @else
+                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($post->user->name) }}&background=random"
+                                            alt="{{ $post->user->name }}"
+                                            class="h-12 w-12 rounded-2xl object-cover border border-slate-100">
+                                    @endif
                                 </div>
+
 
                                 <div class="flex flex-col">
                                     <a href="{{ route('profile.show', $post->user) }}">
                                         <h4 class="font-bold text-slate-900 leading-none">{{ $post->user->name }}</h4>
                                     </a>
                                     <span class="text-slate-400 text-sm mt-1">
-                                        {{ '@' . Str::slug($post->user->name, '') }}
+                                        {{ '@' . $post->user->username }}
                                     </span>
                                 </div>
                             </div>
@@ -68,14 +80,20 @@
                                 <div class="mt-6 space-y-4 border-t border-slate-50 pt-4">
                                     @foreach ($post->comments as $comment)
                                         <div class="flex items-start space-x-3 group/comment">
-                                            <img src="https://ui-avatars.com/api/?name={{ urlencode($comment->user->name) }}&background=random"
-                                                class="w-8 h-8 rounded-xl object-cover border border-slate-100 shrink-0">
-
+                                            @if ($comment->user->avatar)
+                                                <img src="{{ asset('/storage/' . $comment->user->avatar) }}"
+                                                    class="w-8 h-8 rounded-xl object-cover border border-slate-100 shrink-0">
+                                            @else
+                                                <img src="https://ui-avatars.com/api/?name={{ urlencode($comment->user->name) }}&background=random"
+                                                    class="w-8 h-8 rounded-xl object-cover border border-slate-100 shrink-0">
+                                            @endif
                                             <div
                                                 class="flex-1 bg-slate-50 rounded-2xl px-4 py-2.5 transition-colors group-hover/comment:bg-slate-100/50">
                                                 <div class="flex justify-between items-center">
-                                                    <h5 class="text-[13px] font-bold text-slate-900">
-                                                        {{ $comment->user->name }}</h5>
+                                                    <a href="{{ route('profile.show', $comment->user) }}">
+                                                        <h5 class="text-[13px] font-bold text-slate-900">
+                                                            {{ $comment->user->name }}</h5>
+                                                    </a>
                                                     <span
                                                         class="text-[10px] font-medium text-slate-400">{{ $comment->created_at->diffForHumans(short: true) }}</span>
                                                 </div>
