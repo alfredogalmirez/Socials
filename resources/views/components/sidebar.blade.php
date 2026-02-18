@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center h-full w-full py-8 px-5 bg-[--color-card] border-r border-slate-200/60">
+<div class="hidden md:flex flex-col items-center h-full w-full py-8 px-5 bg-[--color-card] border-r border-slate-200/60">
     <div class="w-full px-4 mb-10">
         <div class="text-3xl font-black text-accent tracking-tighter italic">
             S<span class="text-slate-300">.</span>

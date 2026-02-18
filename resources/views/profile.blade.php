@@ -6,7 +6,7 @@
             <div
                 class="md:col-span-1 md:row-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
                 <div
-                    class="w-32 h-32 bg-indigo-600 rounded-[2rem] mb-6 flex items-center justify-center text-4xl font-bold text-white shadow-xl shadow-indigo-100 rotate-3">
+                    class="w-32 h-32 bg-indigo-600 rounded-4x mb-6 flex items-center justify-center text-4xl font-bold text-white shadow-xl shadow-indigo-100 rotate-3">
                     @if ($user->avatar)
                         <img src="{{ asset('storage/' . $user->avatar) }}" class="w-full h-full object-cover">
                     @else
@@ -28,6 +28,27 @@
                         Follow
                     </button>
                 @endif
+
+                @auth
+                    @if(auth()->id() === $user->id)
+                    <div class="md:hidden w-full pt-6 border-t border-slate-100 mt-4">
+                        <form action="{{ route('logout.logout') }}" method="POST"
+                            onsubmit="return confirm('Are you sure you want to logout?')">
+                            @csrf
+                            <button
+                                class="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-4 rounded-2xl font-black text-xs uppercase tracking-widest border border-red-100 shadow-bento hover:bg-red-600 hover:text-white transition-all active:scale-95 cursor-pointer"
+                                type="submit">
+                                <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                    @endif
+                @endauth
             </div>
 
             <div
@@ -36,7 +57,7 @@
                     <span class="block text-4xl font-black text-slate-900">{{ $user->posts->count() }}</span>
                     <span class="text-slate-400 text-[10px] uppercase font-bold tracking-widest">Posts</span>
                 </div>
-                <div class="h-12 w-[1px] bg-slate-100"></div>
+                <div class="h-12 w-px bg-slate-100"></div>
                 <div class="text-center">
                     <span
                         class="block text-4xl font-black text-slate-900">{{ $user->posts->sum(fn($p) => $p->likes->count()) }}</span>
@@ -53,7 +74,7 @@
             </div>
 
             <div class="md:col-span-3 bg-slate-50 p-2 rounded-[2.5rem] border border-slate-100">
-                <div class="bg-white h-full w-full rounded-[2rem] p-8">
+                <div class="bg-white h-full w-full rounded-4xl p-8">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest">Recent Posts</h3>
                         <a href="#" class="text-xs font-bold text-indigo-600 hover:underline">View all</a>

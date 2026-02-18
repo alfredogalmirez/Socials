@@ -1,5 +1,5 @@
 <x-auth>
-    <div class="min-h-screen w-full flex items-center justify-center bg-[#f8fafc] p-4">
+    <div class="min-h-screen w-full flex items-center justify-center bg-bento-bg p-4">
 
         <div class="flex flex-col-reverse md:flex-row w-full max-w-5xl bg-white rounded-[2.5rem] shadow-bento overflow-hidden border border-slate-100">
 
@@ -23,7 +23,7 @@
                             <label class="block text-sm font-bold text-slate-700 ml-1">Username</label>
                             <input type="text" name="username"
                                 class="w-full bg-slate-50 border-none rounded-2xl py-4 px-5 focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-slate-300"
-                                placeholder="@example" value="{{ old('name') }}">
+                                placeholder="@example" value="{{ old('username') }}">
                             @error('name') <span class="text-xs text-red-500 ml-1">{{ $message }}</span> @enderror
                         </div>
 
@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="hidden md:flex md:w-5/12 bg-gradient-to-br from-indigo-600 to-accent p-12 flex-col justify-between text-white text-right">
+            <div class="hidden md:flex md:w-5/12 bg-linear-to-br from-indigo-600 to-accent p-12 flex-col justify-between text-white text-right">
                 <div class="text-3xl font-black italic tracking-tighter">S.</div>
 
                 <div>

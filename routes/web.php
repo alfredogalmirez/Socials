@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('posts.delete');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.logout');
 });
