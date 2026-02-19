@@ -40,7 +40,7 @@ class PostController extends Controller
     }
 
     public function delete(Post $post){
-        if($post->user_id !== auth()->id()){
+        if($post->user_id !== Auth::id()){
             abort(403);
         }
 
