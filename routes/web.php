@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -14,11 +15,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/comments', [CommentController::class, 'show'])->name('posts.comment.show');
     Route::post('/posts/{post}/likes', [LikeController::class, 'store'])->name('posts.like.store');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comment.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('posts.comment.destroy');
 
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile.show');
     Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('posts.delete');
+
+    Route::post('/user/{user}/follow', [FollowController::class, 'toggle'])->name('follow.toggle');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.logout');
 });

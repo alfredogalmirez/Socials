@@ -13,7 +13,8 @@
                     <p class="text-slate-500 font-medium mt-2">Here's what's happening in your circle today.</p>
                 </div>
 
-                <div id="post-form" class="scroll-mt-6 bg-white rounded-3xl p-6 mb-8 shadow-bento border border-slate-100">
+                <div id="post-form"
+                    class="scroll-mt-6 bg-white rounded-3xl p-6 mb-8 shadow-bento border border-slate-100">
                     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="flex items-start space-x-4">
@@ -159,6 +160,19 @@
                                                     </a>
                                                     <span
                                                         class="text-[10px] font-medium text-slate-400">{{ $comment->created_at->diffForHumans(short: true) }}</span>
+
+                                                    @if (auth()->id() === $comment->user_id)
+                                                        <form action="{{ route('posts.comment.destroy', $comment) }}"
+                                                            method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="text-[10px] font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest">
+                                                                Delete
+                                                            </button>
+
+                                                        </form>
+                                                    @endif
                                                 </div>
                                                 <p class="text-sm text-slate-600 leading-snug mt-0.5">
                                                     {{ $comment->content }}

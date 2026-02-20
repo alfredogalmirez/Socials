@@ -23,30 +23,33 @@
                         Edit Profile
                     </a>
                 @else
-                    <button
-                        class="mt-8 w-full py-4 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg">
-                        Follow
-                    </button>
+                    <form action="{{ route('follow.toggle', $user) }}" method="POST" class="w-full">
+                        @csrf
+                        <button type="submit"
+                            class="mt-8 w-full py-4 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg {{ auth()->user()->following->contains($user->id) ? 'bg-slate-200 text-slate-700 hover:bg-red-100 hover:text-red-600' : 'bg-blue-600 text-white hover:bg-blue-700' }}">
+                            {{ auth()->user()->following->contains($user->id) ? 'Unfollow' : 'Follow' }}
+                        </button>
+                    </form>
                 @endif
 
                 @auth
-                    @if(auth()->id() === $user->id)
-                    <div class="md:hidden w-full pt-6 border-t border-slate-100 mt-4">
-                        <form action="{{ route('logout.logout') }}" method="POST"
-                            onsubmit="return confirm('Are you sure you want to logout?')">
-                            @csrf
-                            <button
-                                class="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-4 rounded-2xl font-black text-xs uppercase tracking-widest border border-red-100 shadow-bento hover:bg-red-600 hover:text-white transition-all active:scale-95 cursor-pointer"
-                                type="submit">
-                                <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                </svg>
-                                Logout
-                            </button>
-                        </form>
-                    </div>
+                    @if (auth()->id() === $user->id)
+                        <div class="md:hidden w-full pt-6 border-t border-slate-100 mt-4">
+                            <form action="{{ route('logout.logout') }}" method="POST"
+                                onsubmit="return confirm('Are you sure you want to logout?')">
+                                @csrf
+                                <button
+                                    class="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-4 rounded-2xl font-black text-xs uppercase tracking-widest border border-red-100 shadow-bento hover:bg-red-600 hover:text-white transition-all active:scale-95 cursor-pointer"
+                                    type="submit">
+                                    <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                    </svg>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
                     @endif
                 @endauth
             </div>
