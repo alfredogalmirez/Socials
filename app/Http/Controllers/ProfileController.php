@@ -2,39 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ProfileController extends Controller
 {
-    public function show(User $user)
+    /**
+     * Display the user's profile form.
+     */
+    public function edit(Request $request): Response
     {
-        return view('profile', compact('user'));
-    }
-
-    public function edit()
-    {
-        return view('profile.edit', ['user' => Auth::user()]);
-    }
-
-    public function update(Request $request)
-    {
-        $user = Auth::user();
-
-        $validated = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'username' => 'sometimes|required|alpha_dash|max:255|unique:users,username,' . $user->id,
-            'avatar' => 'nullable|image|max:2048',
-            'bio' => 'nullable|string|max:500',
+        return Inertia::render('Profile/Edit', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
         ]);
+    }
 
-        if($request->hasFile('avatar')){
-            $validated['avatar'] = $request->file('avatar')->store('avatars', 'public');
+    /**
+     * Update the user's profile information.
+     */
+    public function update(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
         }
 
-        $user->update($validated); // IDE Warning only, don't mind!
+        $request->user()->save();
 
-        return back()->with('success', 'Changes saved successfully!');
+        return Redirect::route('profile.edit');
+    }
+
+    /**
+     * Delete the user's account.
+     */
+    public function destroy(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
     }
 }
