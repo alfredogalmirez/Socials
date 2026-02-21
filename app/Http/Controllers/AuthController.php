@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
     public function create()
     {
-        return view('auth.register');
+        return view('Auth/Register');
     }
 
     public function store(Request $request)
@@ -38,7 +39,7 @@ class AuthController extends Controller
 
     public function loginForm()
     {
-        return view('auth.login');
+        return Inertia::render('Auth/Login');
     }
 
     public function login(Request $request)

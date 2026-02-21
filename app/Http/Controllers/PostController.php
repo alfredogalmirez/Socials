@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -15,7 +16,9 @@ class PostController extends Controller
 
         $posts = Post::with('user')->latest()->paginate(10);
 
-        return view('app', compact('posts'));
+        return Inertia::render('Home', [
+            'posts' => $posts
+        ]);
     }
 
     public function store(Request $request){
