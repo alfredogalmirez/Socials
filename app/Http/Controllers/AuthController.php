@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function create()
     {
-        return view('Auth/Register');
+        return Inertia::render('Auth/Register');
     }
 
     public function store(Request $request)

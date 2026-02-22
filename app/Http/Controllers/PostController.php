@@ -24,12 +24,12 @@ class PostController extends Controller
     public function store(Request $request){
        $validated = $request->validate([
             'content' => 'required|string|max:280|min:1',
-            'image' => 'nullable|image|max:5000'
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
        ]);
 
        $imagePath = null;
 
-       if($request->has('image')){
+       if($request->hasFile('image')){
             $imagePath = $request->file('image')->store('posts', 'public');
        }
 
