@@ -72,7 +72,7 @@ const Login = () => {
 
                             <p className="text-center text-slate-500 text-sm font-medium mt-6">
                                 Don't have an account?
-                                <Link href="{ route('register.create') }" className="text-accent font-bold hover:underline">Join
+                                <Link href={ route('register.create') } className="text-accent font-bold hover:underline">Join
                                     now</Link>
                             </p>
                         </form>

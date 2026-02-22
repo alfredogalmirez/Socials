@@ -1,4 +1,5 @@
-import { useForm, usePage, router, Link } from '@inertiajs/react'
+import Sidebar from '@/Components/Sidebar';
+import { useForm, usePage, router, Link, Head } from '@inertiajs/react'
 import React, { useState } from 'react'
 
 const Home = ({ posts }) => {
@@ -34,86 +35,95 @@ const Home = ({ posts }) => {
         });
     }
 
-    if(!auth.user) return <div>Please log in. </div>
+    if (!auth.user) return <div>Please log in. </div>
 
     return (
-        <div className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-8">
+        <>
+            <div className="flex min-h-screen bg-slate-50">
+                <Head title="Feed" />
 
-                <div className="hidden md:block md:col-span-3"></div>
+                <div className="w-full grid grid-cols-1 md:grid-cols-12">
 
-                <div className="col-span-1 md:col-span-6">
-                    {/* Header */}
-                    <div className="mb-8">
-                        <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none">
-                            Hey, {auth.user.name}<span className="text-accent">!</span>
-                        </h1>
-                        <p className="text-slate-500 font-medium mt-2">Here's what's happening in your circle today.</p>
+                    <div className="hidden md:block w-64 md:col-span-3 bg-white border-r border-slate-200 sticky top-0 h-screen">
+                        <Sidebar />
                     </div>
 
-                    {/* Create Post Form */}
-                    <div className="bg-white rounded-3xl p-6 mb-8 shadow-bento border border-slate-100">
-                        <form onSubmit={submitPost}>
-                            <div className="flex items-start space-x-4">
-                                <img
-                                    src={auth.user.avatar ? `/storage/${auth.user.avatar}` : `https://ui-avatars.com/api/?name=${auth.user.name}&background=8b5cf6&color=fff`}
-                                    className="w-12 h-12 rounded-2xl object-cover"
-                                />
-                                <textarea
-                                    value={data.content}
-                                    onChange={e => setData('content', e.target.value)}
-                                    className="flex-1 border-none focus:ring-0 resize-none text-lg font-normal placeholder-slate-400 min-h-20"
-                                    placeholder="What's happening?"
-                                ></textarea>
+                    <main className="col-span-12 md:col-start-4 md:col-span-9 py-8 px-8 flex justify-center">
+                        <div className="max-w-[600px] w-full">
+
+                            {/* Header */}
+                            <div className="mb-8">
+                                <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none">
+                                    Hey, {auth.user.name}<span className="text-accent">!</span>
+                                </h1>
+                                <p className="text-slate-500 font-medium mt-2">Here's what's happening in your circle today.</p>
                             </div>
 
-                            {errors.content && <span className="text-red-500 text-sm ml-16 block">{errors.content}</span>}
+                            {/* Create Post Form */}
+                            <div className="bg-white rounded-3xl p-6 mb-8 shadow-bento border border-slate-100">
+                                <form onSubmit={submitPost}>
+                                    <div className="flex items-start space-x-4">
+                                        <img
+                                            src={auth.user.avatar ? `/storage/${auth.user.avatar}` : `https://ui-avatars.com/api/?name=${auth.user.name}&background=8b5cf6&color=fff`}
+                                            className="w-12 h-12 rounded-2xl object-cover"
+                                        />
+                                        <textarea
+                                            value={data.content}
+                                            onChange={e => setData('content', e.target.value)}
+                                            className="flex-1 border-none focus:ring-0 resize-none text-lg font-normal placeholder-slate-400 min-h-20"
+                                            placeholder="What's happening?"
+                                        ></textarea>
+                                    </div>
 
-                            {imagePreview && (
-                                <div className="mt-4 ml-16 relative group">
-                                    <img src={imagePreview} className="max-h-64 rounded-2xl border border-slate-100 object-cover shadow-sm" />
-                                    <button type="button" onClick={removeImage} className="absolute top-2 left-2 bg-white/80 backdrop-blur-md p-1.5 rounded-full text-red-500">
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                                    </button>
-                                </div>
-                            )}
+                                    {errors.content && <span className="text-red-500 text-sm ml-16 block">{errors.content}</span>}
 
-                            <div className="flex item-center justify-between mt-2 ml-16 border-t border-slate-50 pt-3">
-                                <label className="cursor-pointer p-2 rounded-full hover:bg-slate-100 text-indigo-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <input type="file" className="hidden" onChange={handleImageChange} />
-                                </label>
+                                    {imagePreview && (
+                                        <div className="mt-4 ml-16 relative group">
+                                            <img src={imagePreview} className="max-h-64 rounded-2xl border border-slate-100 object-cover shadow-sm" />
+                                            <button type="button" onClick={removeImage} className="absolute top-2 left-2 bg-white/80 backdrop-blur-md p-1.5 rounded-full text-red-500">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            </button>
+                                        </div>
+                                    )}
 
-                                <button
-                                    disabled={processing}
-                                    type="submit"
-                                    className="bg-accent text-white font-bold rounded-xl px-6 py-2.5 hover:bg-purple-700 transition-all shadow-md active:scale-95 disabled:opacity-50"
-                                >
-                                    Post
-                                </button>
+                                    <div className="flex item-center justify-between mt-2 ml-16 border-t border-slate-50 pt-3">
+                                        <label className="cursor-pointer p-2 rounded-full hover:bg-slate-100 text-indigo-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            <input type="file" className="hidden" onChange={handleImageChange} />
+                                        </label>
+
+                                        <button
+                                            disabled={processing}
+                                            type="submit"
+                                            className="bg-accent text-white font-bold rounded-xl px-6 py-2.5 hover:bg-purple-700 transition-all shadow-md active:scale-95 disabled:opacity-50"
+                                        >
+                                            Post
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-                    </div>
 
-                    {/* Posts Feed */}
-                    <div className="space-y-6">
-                        {posts.data.length > 0 ? (
-                            posts.data.map(post => (
-                                <PostCard key={post.id} post={post} authId={auth.user.id} />
-                            ))
-                        ) : (
-                            <div className="bg-slate-50 rounded-3xl p-12 text-center border-2 border-dashed border-slate-200">
-                                <p className="text-slate-400 font-medium">No posts here yet...</p>
+                            {/* Posts Feed */}
+                            <div className="space-y-6">
+                                {posts.data.length > 0 ? (
+                                    posts.data.map(post => (
+                                        <PostCard key={post.id} post={post} authId={auth.user.id} />
+                                    ))
+                                ) : (
+                                    <div className="bg-slate-50 rounded-3xl p-12 text-center border-2 border-dashed border-slate-200">
+                                        <p className="text-slate-400 font-medium">No posts here yet...</p>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
-                </div>
+                        </div>
+                    </main>
 
-                <div className="hidden lg:block lg:col-span-3"></div>
-            </div>
-        </div>
+                </div >
+            </div >
+
+        </>
     )
 }
 
