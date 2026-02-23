@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useForm, Head } from '@inertiajs/react'
+import FlashMessage from '@/Components/FlashMessage';
 
 const Login = () => {
 
@@ -16,10 +17,11 @@ const Login = () => {
 
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-bentobg p-4">
-            <Head title="Log in"/>
+            <Head title="Log in" />
 
             <div
                 className="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-[2.5rem] shadow-bento overflow-hidden border border-slate-100">
+                <FlashMessage />
 
                 <div
                     className="hidden md:flex md:w-5/12 bg-gradient-to-br from-accent to-indigo-600 p-12 flex-col justify-between text-white">
@@ -53,16 +55,16 @@ const Login = () => {
                                 <label className="block text-sm font-bold text-slate-700 ml-1">Username or Email</label>
                                 <input type="text" name="login" value={data.login} onChange={(e) => setData('login', e.target.value)}
                                     className="w-full bg-slate-50 border-none rounded-2xl py-4 px-5 focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-slate-300"
-                                    placeholder="name@email.com or example_username"/>
-                                    {errors.login && <div className="text-red-500 text-xs mt-1 ml-1">{errors.login}</div>}
+                                    placeholder="name@email.com or example_username" />
+                                {errors.login && <div className="text-red-500 text-xs mt-1 ml-1">{errors.login}</div>}
                             </div>
 
                             <div className="space-y-2">
                                 <label className="block text-sm font-bold text-slate-700 ml-1">Password</label>
                                 <input type="password" name="password" value={data.password} onChange={(e) => setData('password', e.target.value)}
                                     className="w-full bg-slate-50 border-none rounded-2xl py-4 px-5 focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-slate-300"
-                                    placeholder="••••••••"/>
-                                    {errors.password && <div className="text-red-500 text-xs mt-1 ml-1">{errors.password}</div>}
+                                    placeholder="••••••••" />
+                                {errors.password && <div className="text-red-500 text-xs mt-1 ml-1">{errors.password}</div>}
                             </div>
 
                             <button type="submit" disabled={processing}
@@ -72,7 +74,7 @@ const Login = () => {
 
                             <p className="text-center text-slate-500 text-sm font-medium mt-6">
                                 Don't have an account?
-                                <Link href={ route('register.create') } className="text-accent font-bold hover:underline">Join
+                                <Link href={route('register.create')} className="text-accent font-bold hover:underline">Join
                                     now</Link>
                             </p>
                         </form>

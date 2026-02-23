@@ -1,3 +1,4 @@
+import FlashMessage from '@/Components/FlashMessage';
 import Sidebar from '@/Components/Sidebar';
 import { useForm, usePage, router, Link, Head } from '@inertiajs/react'
 import React, { useState } from 'react'
@@ -43,6 +44,7 @@ const Home = ({ posts }) => {
                 <Head title="Feed" />
 
                 <div className="w-full grid grid-cols-1 md:grid-cols-12">
+                    <FlashMessage />
 
                     <div className="hidden md:block w-64 md:col-span-3 bg-white border-r border-slate-200 sticky top-0 h-screen">
                         <Sidebar />
