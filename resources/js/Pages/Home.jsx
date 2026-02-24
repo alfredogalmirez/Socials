@@ -132,6 +132,20 @@ const Home = ({ posts }) => {
 function PostCard({ post, authId }) {
     const [showReply, setShowReply] = useState(false);
 
+    const { data, setData, post: submit, error } = useForm({
+        post_id: post.id,
+        content: '',
+    });
+
+    const submitComment = (e) => {
+        e.preventDefault();
+        submit(route('posts.comment.store', post.id), {
+            preserveScroll: true,
+            onSuccess: () =>
+                setData('content', ''),
+        });
+    }
+
     return (
         <div className="bg-white rounded-3xl p-6 shadow-bento border border-slate-50 hover:border-purple-100 transition-colors">
             {/* User Info Header */}
@@ -167,7 +181,13 @@ function PostCard({ post, authId }) {
             {/* Like and Reply Buttons */}
             <div className="mt-6 flex items-center space-x-6">
                 <button
-                    onClick={() => router.post(route('posts.like.store', post.id))}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        router.post(route('posts.like.store', post.id), {}, {
+                            preserveScroll: true,
+                        });
+                    }}
+
                     className={`flex items-center space-x-2 transition-all active:scale-90 ${post.is_liked ? 'text-red-500' : 'text-slate-400'}`}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill={post.is_liked ? 'currentColor' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
@@ -183,18 +203,35 @@ function PostCard({ post, authId }) {
             </div>
 
             {/* Conditional Reply Form */}
-            {showReply && (
-                <div className="mt-4 pt-4 border-t border-slate-50">
-                    <form className="flex items-end space-x-3">
-                        <div className="flex-1 bg-slate-50 rounded-2xl px-4 py-2 border border-transparent focus-within:border-purple-100 focus-within:bg-white transition-all">
-                            <textarea rows="1" placeholder="Write a comment..." className="w-full bg-transparent border-none focus:ring-0 text-sm p-0 resize-none"></textarea>
+            {(showReply || (post.comments && post.comments.length > 0)) && (
+                <div className="mt-4 pt-4 border-t border-slate-50 space-y-6">
+
+                    {post.comments?.map((comment) => (
+                        <div key={comment.id} className="flex items-start space-x-3">
+                            <img
+                                src={comment.user.avatar ? `storage/${comment.user.avatar}` : `https://ui-avatars.com/api/?name=${comment.user?.name}&background=random`}
+                                className="h-8 w-8 rounded-xl flex-shrink-0"
+                            />
+                            <div className="bg-slate-50 rounded-2xl px-4 py-2 flex-1">
+                                <div className="font-bold text-xs text-slate-900">{comment.user?.name}</div>
+                                <div className="text-slate-700 text-sm leading-snug">{comment.content}</div>
+                            </div>
                         </div>
-                        <button className="bg-accent text-white p-2 rounded-xl hover:bg-purple-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                        </button>
-                    </form>
+                    ))}
+
+                    {showReply && (
+                        <form onSubmit={submitComment} className="flex items-end space-x-3">
+                            <div className="flex-1 bg-slate-50 rounded-2xl px-4 py-2 border border-transparent focus-within:border-purple-100 focus-within:bg-white transition-all">
+                                <textarea value={data.content} onChange={e => setData('content', e.target.value)} rows="1" placeholder="Write a comment..." className="w-full bg-transparent border-none focus:ring-0 text-sm p-0 resize-none"></textarea>
+                            </div>
+                            <button type="submit" className="bg-accent text-white p-2 rounded-xl hover:bg-purple-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                            </button>
+                        </form>
+                    )}
                 </div>
             )}
+
         </div>
     );
 }
