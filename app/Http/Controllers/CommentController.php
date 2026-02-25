@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class CommentController extends Controller
 {
@@ -14,7 +15,9 @@ class CommentController extends Controller
 
         $posts = Comment::with(['user', 'comments.user'])->latest()->paginate();
 
-        return view('app', compact('posts'));
+        return Inertia::render('app', [
+            'posts' => $posts
+        ]);
     }
 
     public function store(Request $request, Post $post)

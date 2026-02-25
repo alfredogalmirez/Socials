@@ -4,23 +4,24 @@ import { useEffect, useState } from 'react'
 
 const FlashMessage = () => {
     const { flash } = usePage().props;
-    const { show, setShow } = useState(false);
+    const [ show, setShow ] = useState(false);
 
     useEffect(() => {
-        if(flash?.success) {
+        if (flash?.success || flash?.error) {
             setShow(true);
             const timer = setTimeout(() => setShow(false), 4000);
             return () => clearTimeout(timer);
         }
     }, [flash]);
 
-  return (
-    <div
-            className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ease-out transform ${
-                show
+    if (!show || !flash) return null;
+
+    return (
+        <div
+            className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ease-out transform ${show
                 ? 'opacity-100 translate-y-0 scale-100'
                 : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
-            }`}
+                }`}
         >
             <div className="bg-white border border-slate-100 shadow-bento rounded-3xl p-4 flex items-center space-x-4 min-w-[280px]">
 
@@ -34,10 +35,10 @@ const FlashMessage = () => {
                 {/* Text Content */}
                 <div className="flex-1">
                     <p className="text-[13px] font-black text-slate-900 leading-tight uppercase tracking-tight">
-                        Success
+                        {flash.success ? 'Success' : 'Error'}
                     </p>
                     <p className="text-xs font-bold text-slate-500 mt-0.5">
-                        {flash?.success}
+                        {flash?.success || flash?.error}
                     </p>
                 </div>
 
@@ -52,7 +53,7 @@ const FlashMessage = () => {
                 </button>
             </div>
         </div>
-  )
+    )
 }
 
 export default FlashMessage

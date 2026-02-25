@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CustomProfileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('home');
@@ -18,9 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comment.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('posts.comment.destroy');
 
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/profile/{user:username}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [CustomProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/edit', [CustomProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/{user:username}', [CustomProfileController::class, 'show'])->name('profile.show');
     Route::delete('/posts/{post}', [PostController::class, 'delete'])->name('posts.delete');
 
     Route::post('/user/{user}/follow', [FollowController::class, 'toggle'])->name('follow.toggle');
