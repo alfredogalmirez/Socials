@@ -1,6 +1,7 @@
 import FlashMessage from '@/Components/FlashMessage';
 import Sidebar from '@/Components/Sidebar';
 import { useForm, usePage, router, Link, Head } from '@inertiajs/react'
+import { comment } from 'postcss';
 import React, { useState } from 'react'
 
 const Home = ({ posts }) => {
@@ -146,6 +147,14 @@ function PostCard({ post, authId }) {
         });
     }
 
+    const handleDeleteComment = (id) => {
+        if (confirm('Delete this comment?')) {
+            router.delete(route('posts.comment.destroy', id), {
+                preserveScroll: true,
+            });
+        }
+    }
+
     return (
         <div className="bg-white rounded-3xl p-6 shadow-bento border border-slate-50 hover:border-purple-100 transition-colors">
             {/* User Info Header */}
@@ -207,14 +216,30 @@ function PostCard({ post, authId }) {
                 <div className="mt-4 pt-4 border-t border-slate-50 space-y-6">
 
                     {post.comments?.map((comment) => (
-                        <div key={comment.id} className="flex items-start space-x-3">
+                        <div key={comment.id} className="flex items-start space-x-3 group">
+
                             <img
                                 src={comment.user.avatar ? `storage/${comment.user.avatar}` : `https://ui-avatars.com/api/?name=${comment.user?.name}&background=random`}
                                 className="h-8 w-8 rounded-xl flex-shrink-0"
                             />
-                            <div className="bg-slate-50 rounded-2xl px-4 py-2 flex-1">
-                                <div className="font-bold text-xs text-slate-900">{comment.user?.name}</div>
-                                <div className="text-slate-700 text-sm leading-snug">{comment.content}</div>
+
+                            <div className="bg-slate-50 rounded-2xl px-4 py-2 flex-1 relative">
+                                <div className="flex justify-between items-center mb-1">
+                                    <div className="font-bold text-xs text-slate-900">
+                                        {comment.user?.name}
+                                    </div>
+
+                                    {comment.user_id === authId && (
+                                        <button onClick={() => handleDeleteComment(comment.id)} className="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-red-500">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="text-slate-700 text-sm leading-snug">
+                                    {comment.content}
+                                </div>
                             </div>
                         </div>
                     ))}
