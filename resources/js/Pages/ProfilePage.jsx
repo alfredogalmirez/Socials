@@ -1,5 +1,5 @@
 import Sidebar from '@/Components/Sidebar';
-import { Head, Link, useForm, usePage } from '@inertiajs/react'
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react'
 import React from 'react'
 
 const ProfilePage = ({ auth, profileUser, isFollowing }) => {
@@ -36,7 +36,7 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
 
                             {/* Follow/Edit Button Logic */}
                             <button
-                                onClick={() => isOwnProfile ? null : post(route('follow.toggle', profileUser.id))}
+                                onClick={() => isOwnProfile ? router.get(route('profile.edit')) : post(route('follow.toggle', profileUser.id))}
                                 className={`mt-8 w-full py-4 text-xs font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg ${isOwnProfile ? 'bg-slate-900 text-white' : (isFollowing ? 'bg-slate-200 text-slate-700' : 'bg-blue-600 text-white')
                                     }`}
                             >
