@@ -43,7 +43,7 @@ class CustomProfileController extends Controller
 
     public function edit()
     {
-        return view('profile.edit', ['user' => Auth::user()]);
+        return Inertia::render('Profile/EditProfile', ['user' => Auth::user()]);
     }
 
     public function update(Request $request)
