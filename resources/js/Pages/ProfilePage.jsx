@@ -1,10 +1,16 @@
+import BottomNav from '@/Components/BottomNav';
 import Sidebar from '@/Components/Sidebar';
-import { Head, Link, router, useForm, usePage } from '@inertiajs/react'
+import { Head, router, useForm} from '@inertiajs/react'
 import React from 'react'
 
 const ProfilePage = ({ auth, profileUser, isFollowing }) => {
     const { post } = useForm();
     const isOwnProfile = auth.user?.id === profileUser.id;
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        post(route('logout.logout'));
+    }
 
     return (
         <div className="flex min-h-screen bg-slate-50">
@@ -42,6 +48,10 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
                             >
                                 {isOwnProfile ? 'Edit Profile' : (isFollowing ? 'Unfollow' : 'Follow')}
                             </button>
+
+
+                            <button onClick={handleLogout} className="md:hidden bg-slate-100 text-slate-500 active:bg-slate-200 mt-8 w-full py-4 text-xs uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg">Logout</button>
+
                         </div>
 
                         {/* STATS CARD (Wide) */}
@@ -79,6 +89,8 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
                     </div>
                 </div>
             </main>
+
+            <BottomNav />
         </div>
     )
 }
