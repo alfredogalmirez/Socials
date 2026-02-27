@@ -44,7 +44,8 @@ const Sidebar = () => {
                             : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
                         }`}
                 >
-                    <span className="flex items-center pl-4">Profile</span>
+                    {url.startsWith('/profile') && <span className="w-1.5 h-1.5 rounded-full bg-accent mr-3"></span>}
+                    <span className={!url.startsWith('/profile') ? 'pl-4' : ''}>Profile</span>
                 </Link>
             </nav>
 

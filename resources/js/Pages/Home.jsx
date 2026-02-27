@@ -1,3 +1,4 @@
+import BottomNav from '@/Components/BottomNav';
 import FlashMessage from '@/Components/FlashMessage';
 import Sidebar from '@/Components/Sidebar';
 import { useForm, usePage, router, Link, Head } from '@inertiajs/react'
@@ -257,6 +258,7 @@ function PostCard({ post, authId }) {
                 </div>
             )}
 
+            <BottomNav />
         </div>
     );
 }
