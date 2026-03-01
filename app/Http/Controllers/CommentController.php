@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Notification;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,13 @@ class CommentController extends Controller
         $post->comments()->create([
             'user_id' => Auth::id(),
             'content' => $validated['content'],
+        ]);
+
+        Notification::create([
+            'user_id' => $post->user_id,
+            'actor_id' => Auth::id(),
+            'type' => 'comment',
+            'post_id' => $post->id,
         ]);
 
         return back()->with('success', 'Comment posted.');

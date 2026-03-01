@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CustomProfileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/likes', [LikeController::class, 'store'])->name('posts.like.store');
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comment.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('posts.comment.destroy');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notification.index');
 
     Route::get('/profile/edit', [CustomProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/edit', [CustomProfileController::class, 'update'])->name('profile.update');
