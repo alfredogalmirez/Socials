@@ -32,12 +32,14 @@ class CommentController extends Controller
             'content' => $validated['content'],
         ]);
 
-        Notification::create([
-            'user_id' => $post->user_id,
-            'actor_id' => Auth::id(),
-            'type' => 'comment',
-            'post_id' => $post->id,
-        ]);
+        if ($post->user_id !== Auth::id()) {
+            Notification::create([
+                'user_id' => $post->user_id,
+                'actor_id' => Auth::id(),
+                'type' => 'comment',
+                'post_id' => $post->id,
+            ]);
+        }
 
         return back()->with('success', 'Comment posted.');
     }

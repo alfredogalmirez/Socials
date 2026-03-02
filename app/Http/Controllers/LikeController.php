@@ -11,13 +11,6 @@ class LikeController extends Controller
     public function store(Post $post)
     {
 
-        Notification::create([
-            'user_id' => $post->user_id,
-            'actor_id' => Auth::id(),
-            'type' => 'like',
-            'post_id' => $post->id,
-        ]);
-
         $like = $post->likes()->where('user_id', Auth::id())->first();
 
         if ($like) {
@@ -26,6 +19,15 @@ class LikeController extends Controller
             $post->likes()->create([
                 'user_id' => Auth::id(),
             ]);
+
+            if ($post->user_id !== Auth::id()) {
+                Notification::create([
+                    'user_id' => $post->user_id,
+                    'actor_id' => Auth::id(),
+                    'type' => 'like',
+                    'post_id' => $post->id,
+                ]);
+            }
         }
 
         return back();

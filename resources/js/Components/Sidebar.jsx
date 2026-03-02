@@ -47,6 +47,17 @@ const Sidebar = () => {
                     {url.startsWith('/profile') && <span className="w-1.5 h-1.5 rounded-full bg-accent mr-3"></span>}
                     <span className={!url.startsWith('/profile') ? 'pl-4' : ''}>Profile</span>
                 </Link>
+
+                <Link
+                    href={route('notifications.index')}
+                    className={`flex items-center w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${url.startsWith('/notifications')
+                            ? 'bg-accent/10 text-accent'
+                            : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                        }`}
+                >
+                    {url.startsWith('/notifications') && <span className="w-1.5 h-1.5 rounded-full bg-accent mr-3"></span>}
+                    <span className={!url.startsWith('/notifications') ? 'pl-4' : ''}>Notifications</span>
+                </Link>
             </nav>
 
             {/* Auth Section (Logout) */}

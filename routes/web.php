@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comment.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('posts.comment.destroy');
 
-    Route::get('/notifications', [NotificationController::class, 'index'])->name('notification.index');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 
     Route::get('/profile/edit', [CustomProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/edit', [CustomProfileController::class, 'update'])->name('profile.update');
