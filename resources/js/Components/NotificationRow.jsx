@@ -2,9 +2,9 @@ import React from 'react'
 
 const NotificationRow = ({ notification }) => {
     const icons = {
-        like: "❤️",
-        comment: "💬",
-        follow: "👤"
+        like: <i className="fa-solid fa-heart text-red-500"></i>,
+        comment: <i className="fa-solid fa-comment text-blue-500"></i>,
+        follow: <i class="fa-solid fa-user-plus text-indigo-600"></i>,
     };
 
     return (

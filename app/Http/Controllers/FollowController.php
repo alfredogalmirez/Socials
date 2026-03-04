@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
@@ -15,6 +15,12 @@ class FollowController extends Controller
         }
 
         auth()->user()->following()->toggle($user->id);
+
+        Notification::create([
+            'user_id' => $user->id,
+            'actor_id' => Auth::id(),
+            'type' => "follow",
+        ]);
 
         return back()->with('success', 'Follow status updated!');
     }
