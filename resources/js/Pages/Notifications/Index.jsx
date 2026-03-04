@@ -20,9 +20,9 @@ const Index = ({ notifications }) => {
                     </div>
 
                     <div className="flex flex-col gap-3">
-                        {notifications.map((item) => (
+                        {notifications.length > 0 ? notifications.map((item) => (
                             <NotificationRow key={item.id} notification={item} />
-                        ))}
+                        )) : "No Notification"}
                     </div>
                 </div>
             </div>

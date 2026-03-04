@@ -1,6 +1,6 @@
 import BottomNav from '@/Components/BottomNav';
 import Sidebar from '@/Components/Sidebar';
-import { Head, router, useForm} from '@inertiajs/react'
+import { Head, router, useForm } from '@inertiajs/react'
 import React from 'react'
 
 const ProfilePage = ({ auth, profileUser, isFollowing }) => {
@@ -80,7 +80,7 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
                                 {profileUser.posts.map(post => (
                                     <div key={post.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
                                         <p className="text-slate-600 text-sm">{post.content}</p>
-                                        <div className="mt-2 text-[10px] font-bold text-slate-400">❤️ {post.likes_count}</div>
+                                        <div className="mt-2 text-[10px] font-bold text-slate-400"><i className="fa-solid fa-heart text-red-500"></i> {post.likes_count}</div>
                                     </div>
                                 ))}
                             </div>
