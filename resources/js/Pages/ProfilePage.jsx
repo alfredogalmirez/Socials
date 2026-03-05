@@ -73,6 +73,11 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
                             <p className="text-2xl font-bold">{profileUser.member_since}</p>
                         </div>
 
+                        <div className="bg-indigo-300">
+                                <p>{profileUser.followers_count}</p>
+                                <p>{profileUser.following_count}</p>
+                        </div>
+
                         {/* RECENT POSTS BOX (Large) */}
                         <div className="md:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
                             <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Recent Activity</h3>

@@ -12,7 +12,7 @@ class CustomProfileController extends Controller
 {
     public function show(User $user)
     {
-        $user->loadCount('posts')->load([
+        $user->loadCount(['posts', 'followers', 'following'])->load([
             'posts' => function ($query) {
                 $query->latest()->take(4)->withCount('likes');
             }
@@ -28,6 +28,8 @@ class CustomProfileController extends Controller
                 'avatar' => $user->avatar ? asset('storage/' . $user->avatar) : null,
                 'initial' => substr($user->name, 0, 1),
                 'posts_count' => $user->posts_count,
+                'followers_count' => $user->followers_count,
+                'following_count' => $user->following_count,
                 'total_likes' => $totalLikes,
                 'member_since' => $user->created_at->format('M Y'),
                 'posts' => $user->posts->map(fn($post) => [

@@ -14,13 +14,17 @@ class FollowController extends Controller
             return back()->with('error', 'You cannot follow yourself.');
         }
 
-        auth()->user()->following()->toggle($user->id);
+        $result = auth()->user()->following()->toggle($user->id);
 
-        Notification::create([
+        if(count($result['attached']) > 0){
+             Notification::updateOrCreate([
             'user_id' => $user->id,
             'actor_id' => Auth::id(),
             'type' => "follow",
+            'created_at' => now(),
         ]);
+
+        }
 
         return back()->with('success', 'Follow status updated!');
     }
