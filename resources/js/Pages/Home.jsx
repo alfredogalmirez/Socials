@@ -48,11 +48,11 @@ const Home = ({ posts }) => {
                 <div className="w-full grid grid-cols-1 md:grid-cols-12">
                     <FlashMessage />
 
-                    <div className="hidden md:block w-64 md:col-span-3 bg-white border-r border-slate-200 sticky top-0 h-screen">
+                    <div className="hidden md:block w-64 md:col-span-2 bg-white border-r border-slate-200 sticky top-0 h-screen">
                         <Sidebar />
                     </div>
 
-                    <main className="col-span-12 md:col-start-4 md:col-span-9 py-8 px-8 flex justify-center">
+                    <main className="col-span-12 md:col-start-3 md:col-span-11 py-8 px-8 flex justify-center">
                         <div className="max-w-[600px] w-full">
 
                             {/* Header */}
