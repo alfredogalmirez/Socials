@@ -64,22 +64,22 @@ const EditProfile = ({ user }) => {
                                 </form>
                             </div>
 
-                            <div class="md:col-span-2 bg-slate-900 p-8 rounded-[2.5rem] text-white shadow-xl">
+                            <div class="md:col-span-2 bg-indigo-600 p-8 rounded-[2.5rem] text-white shadow-xl">
                                 <form onSubmit={submit} class="space-y-6">
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div>
-                                            <label class="block text-[10px] uppercase tracking-[0.2em] font-black text-slate-400 mb-2">Display Name</label>
+                                            <label class="block text-[10px] uppercase tracking-[0.2em] font-black text-indigo-100 mb-2">Display Name</label>
                                             <input type="text" value={data.name} onChange={e => setData('name', e.target.value)}
-                                                class="w-full bg-slate-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-indigo-500 transition-all" />
+                                                class="w-full bg-white/90 text-black border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-indigo-500 transition-all" />
                                         </div>
                                         <div>
-                                            <label class="block text-[10px] uppercase tracking-[0.2em] font-black text-slate-400 mb-2">Username</label>
+                                            <label class="block text-[10px] uppercase tracking-[0.2em] font-black text-indigo-100 mb-2">Username</label>
                                             <input type="text" value={data.username} onChange={e => setData('username', e.target.value)}
-                                                class="w-full bg-slate-800 border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-indigo-500 transition-all" />
+                                                class="w-full bg-white/90 text-black border-none rounded-2xl p-4 text-sm focus:ring-2 focus:ring-indigo-500 transition-all" />
                                         </div>
                                     </div>
                                     <div class="flex justify-end">
-                                        <button type="submit" class="px-8 py-3 bg-white text-slate-900 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-400 hover:text-white transition-all">
+                                        <button type="submit" class="px-8 py-3 bg-white text-indigo-600 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-50 hover:-translate-y-1 transition-all">
                                             Save Identity
                                         </button>
                                     </div>
@@ -88,13 +88,13 @@ const EditProfile = ({ user }) => {
 
                             <div class="md:col-span-3 bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
                                 <form onSubmit={submit}>
-                                    <label class="block text-[10px] uppercase tracking-[0.2em] font-black text-slate-400 mb-4">About Your Journey</label>
+                                    <label class="block text-[10px] uppercase tracking-[0.2em] font-black text-indigo-950 mb-4">About Your Journey</label>
                                     <textarea value={data.bio} onChange={e => setData('bio', e.target.value)} rows="4"
-                                        class="w-full bg-slate-50 border-none rounded-3xl p-6 text-slate-700 text-lg leading-relaxed focus:ring-2 focus:ring-indigo-500 transition-all"
+                                        class="w-full bg-indigo-50/50 border-none rounded-3xl p-6 text-indigo-950 text-lg leading-relaxed focus:ring-2 focus:ring-indigo-500 transition-all"
                                         placeholder="Who are you?"></textarea>
                                     <div class="mt-6 flex justify-between items-center">
-                                        <p class="text-xs text-slate-400 italic">Max 500 characters</p>
-                                        <button type="submit" class="px-10 py-4 bg-indigo-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-slate-900 transition-all shadow-lg shadow-indigo-200">
+                                        <p class="text-xs text-indigo-400/70 italic">Max 500 characters</p>
+                                        <button type="submit" class="px-10 py-4 bg-indigo-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700 hover:-translate-y-1 transition-all shadow-lg shadow-indigo-200">
                                             Update Biography
                                         </button>
                                     </div>

@@ -219,15 +219,19 @@ function PostCard({ post, authId }) {
                     {post.comments?.map((comment) => (
                         <div key={comment.id} className="flex items-start space-x-3 group">
 
-                            <img
-                                src={comment.user.avatar ? `storage/${comment.user.avatar}` : `https://ui-avatars.com/api/?name=${comment.user?.name}&background=random`}
-                                className="h-8 w-8 rounded-xl flex-shrink-0"
-                            />
+                            <Link href={route('profile.show', comment.user.username) }>
+                                <img
+                                    src={comment.user.avatar ? `storage/${comment.user.avatar}` : `https://ui-avatars.com/api/?name=${comment.user?.name}&background=random`}
+                                    className="h-8 w-8 rounded-xl flex-shrink-0"
+                                />
+                            </Link>
 
                             <div className="bg-slate-50 rounded-2xl px-4 py-2 flex-1 relative">
                                 <div className="flex justify-between items-center mb-1">
                                     <div className="font-bold text-xs text-slate-900">
+                                        <Link href={route('profile.show', comment.user.username)}>
                                         {comment.user?.name}
+                                        </Link>
                                     </div>
 
                                     {comment.user_id === authId && (

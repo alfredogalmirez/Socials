@@ -30,7 +30,7 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
 
                         {/* PROFILE INFO CARD (Tall) */}
                         <div className="md:col-span-1 md:row-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
-                            <div className="w-32 h-32 bg-indigo-600 rounded-4xl mb-6 flex items-center justify-center text-4xl font-bold text-white shadow-xl shadow-indigo-100 rotate-3 overflow-hidden">
+                            <div className="w-32 h-32 bg-indigo-600 rounded-4xl mb-6 flex items-center justify-center text-4xl font-bold text-white shadow-xl shadow-indigo-100 rotate-3 hover:-translate-y-1 transition-transform overflow-hidden">
                                 {profileUser.avatar ? (
                                     <img src={profileUser.avatar} className="w-full h-full object-cover" alt="" />
                                 ) : (
@@ -43,7 +43,7 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
                             {/* Follow/Edit Button Logic */}
                             <button
                                 onClick={() => isOwnProfile ? router.get(route('profile.edit')) : post(route('follow.toggle', profileUser.id))}
-                                className={`mt-8 w-full py-4 text-xs font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95 shadow-lg ${isOwnProfile ? 'bg-slate-900 text-white' : (isFollowing ? 'bg-slate-200 text-slate-700' : 'bg-blue-600 text-white')
+                                className={`mt-8 w-full py-4 text-xs font-black uppercase tracking-widest rounded-2xl hover:-translate-y-1 transition-all active:scale-95 shadow-lg ${isOwnProfile ? 'border-2  border-indigo-600 text-indigo-600 bg-transparent hover:bg-indigo-50 shadow-none' : (isFollowing ? 'bg-slate-100 text-slate-500 border border-slate-200 shadow-none' : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-600')
                                     }`}
                             >
                                 {isOwnProfile ? 'Edit Profile' : (isFollowing ? 'Unfollow' : 'Follow')}
@@ -73,14 +73,14 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
                             <p className="text-2xl font-bold">{profileUser.member_since}</p>
                         </div>
 
-                        <div className="bg-indigo-400 p-8 flex items-center justify-around rounded-full">
-                            <div className="flex flex-col text-center">
-                                <span>{profileUser.followers_count}</span>
-                                <span>Followers</span>
+                        <div className="bg-white border border-slate-200 p-6 flex items-center justify-around rounded-3xl shadow-sm">
+                            <div className="flex-1 flex flex-col items-center border-r border-slate-100">
+                                <span className="text-2xl font-black text-indigo-600">{profileUser.followers_count}</span>
+                                <span className="text-xs uppercase font-bold text-slate-400 tracking-tight">Followers</span>
                             </div>
-                            <div className="flex flex-col text-center">
-                                <span>{profileUser.following_count}</span>
-                                <span>Following</span>
+                            <div className="flex-1 flex flex-col items-center">
+                                <span className="text-2xl font-black text-indigo-600">{profileUser.following_count}</span>
+                                <span className="text-xs uppercase font-bold text-slate-400 tracking-tight">Following</span>
                             </div>
                         </div>
 
