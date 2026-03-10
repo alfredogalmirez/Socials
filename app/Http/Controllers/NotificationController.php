@@ -18,6 +18,11 @@ class NotificationController extends Controller
             $data = $notification->toArray();
             $data["created_at_human"] = $notification->created_at->diffForHumans();
 
+            if($notification->actor && $notification->actor->avatar){
+                $avatar = $notification->actor->avatar;
+
+                $data['actor']['avatar'] = str_starts_with($avatar, 'http') ? $avatar : asset('storage/', $avatar);
+            }
             return $data;
         });
 
