@@ -27,7 +27,7 @@ class CustomProfileController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'username' => $user->username,
-                'avatar' => $user->avatar ? (str_starts_with('$user->avatar', 'http') ? $user->avatar : asset('storage/' . $user->avatar)) : null,
+                'avatar' => $user->avatar ? (str_starts_with($user->avatar, 'http') ? $user->avatar : asset('storage/' . $user->avatar)) : null,
                 'initial' => substr($user->name, 0, 1),
                 'posts_count' => $user->posts_count,
                 'followers_count' => $user->followers_count,

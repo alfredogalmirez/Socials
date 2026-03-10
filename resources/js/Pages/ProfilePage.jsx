@@ -34,7 +34,7 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
                                 {profileUser.avatar ? (
                                     <img src={profileUser.avatar} className="w-full h-full object-cover" alt="Profile Picture" />
                                 ) : (
-                                    <span>{profileUser.initial}</span>
+                                    <span className="text-2xl uppercase">{profileUser.initial}</span>
                                 )}
                             </div>
                             <h2 className="text-2xl font-black text-slate-900 tracking-tight">{profileUser.name}</h2>
