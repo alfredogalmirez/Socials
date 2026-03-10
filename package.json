@@ -3,6 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "vercel-build": "composer install --no-dev && php artisan config:clear && php artisan view:clear",
         "build": "vite build",
         "dev": "vite"
     },
