@@ -162,7 +162,7 @@ function PostCard({ post, authId }) {
             <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center mb-4">
                     <img
-                        src={post.user.avatar ? `/storage/${post.user.avatar}` : `https://ui-avatars.com/api/?name=${post.user.name}&background=random`}
+                        src={post.user.avatar || `https://ui-avatars.com/api/?name=${post.user.name}&background=random`}
                         className="h-12 w-12 rounded-2xl object-cover border border-slate-100 mr-4"
                     />
                     <div className="flex flex-col">
@@ -221,7 +221,7 @@ function PostCard({ post, authId }) {
 
                             <Link href={route('profile.show', comment.user.username) }>
                                 <img
-                                    src={comment.user.avatar ? `storage/${comment.user.avatar}` : `https://ui-avatars.com/api/?name=${comment.user?.name}&background=random`}
+                                    src={comment.user.avatar || `https://ui-avatars.com/api/?name=${comment.user?.name}&background=random`}
                                     className="h-8 w-8 rounded-xl flex-shrink-0"
                                 />
                             </Link>
