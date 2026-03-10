@@ -75,8 +75,9 @@ class CustomProfileController extends Controller
 
             if ($user->avatar && str_starts_with($user->avatar, 'http')) {
                 try {
-                    $client->delete($user->avatar);
+                    $client->del($user->avatar);
                 } catch (\Exception $e) {
+                    logger("Failed to delete blob: " . $e->getMessage());
                 }
             }
 
