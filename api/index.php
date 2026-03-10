@@ -11,6 +11,7 @@ $storagePath = '/tmp/storage/framework';
 $folders = [$storagePath . '/views', $storagePath . '/cache', $storagePath . '/sessions'];
 
 foreach ($folders as $folder) {
+    // Only create if it doesn't exist to prevent "File exists" warnings
     if (!is_dir($folder)) {
         mkdir($folder, 0755, true);
     }
