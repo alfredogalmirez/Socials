@@ -28,9 +28,9 @@ class PostController extends Controller
                 'id' => $post->id,
                 'user_id' => $post->user_id,
                 'content' => $post->content,
-                'image' => $post->image,
+                'image' => $image,
                 'create_at' => $post->created_at->diffForHumans(),
-                'user' => $image,
+                'user' => $post->user,
                 'likes_count' => $post->likes_count,
                 'is_liked' => auth()->check()
                     ? $post->likes->where('user_id', auth()->id())->isNotEmpty()
