@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use VercelBlobPhp\Client;
 
 class PostController extends Controller
 {
@@ -43,7 +44,17 @@ class PostController extends Controller
         $imagePath = null;
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('posts', 'public');
+            $client = new Client();
+
+            $file = $request->file('image');
+
+            $filename = 'socials/posts/' . time() . '-' . $file->getClientOriginalName();
+
+            $result = $client->put($filename, file_get_contents($file->getRealPath()), [
+                'access' => 'public'
+            ]);
+
+            $imagePath = $result->url;
         }
 
         Post::create([
