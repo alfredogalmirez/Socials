@@ -25,19 +25,28 @@ class CustomProfileController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'username' => $user->username,
-                'avatar' => $user->avatar ? asset('storage/' . $user->avatar) : null,
+                'avatar' => $user->avatar ? (str_starts_with('$user->avatar', 'http') ? $user->avatar : asset('storage/' . $user->avatar)) : null,
                 'initial' => substr($user->name, 0, 1),
                 'posts_count' => $user->posts_count,
                 'followers_count' => $user->followers_count,
                 'following_count' => $user->following_count,
                 'total_likes' => $totalLikes,
                 'member_since' => $user->created_at->format('M Y'),
-                'posts' => $user->posts->map(fn($post) => [
-                    'id' => $post->id,
-                    'content' => $post->content,
-                    'created_at_human' => $post->created_at->diffForHumans(),
-                    'likes_counts' => $post->likes_count,
-                ]),
+                'posts' => $user->posts->map(function ($post) {
+
+                    $imagePath = $post->image;
+
+                    if($imagePath && !str_starts_with($imagePath, 'http')) {
+                        $imagePath = asset('storage/' . $imagePath);
+                    }
+
+                    return [
+                        'id' => $post->id,
+                        'content' => $post->content,
+                        'created_at_human' => $post->created_at->diffForHumans(),
+                        'likes_counts' => $post->likes_count,
+                    ];
+                }),
             ],
             'isFollowing' => auth()->check() ? auth()->user()->following()->where('followed_id', $user->id)->exists() : false,
         ]);
