@@ -16,19 +16,28 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts = Post::with(['user', 'comments.user'])->withCount('likes')->latest()->paginate(10)->through(fn($post) => [
-            'id' => $post->id,
-            'user_id' => $post->user_id,
-            'content' => $post->content,
-            'image' => $post->image,
-            'create_at' => $post->created_at->diffForHumans(),
-            'user' => $post->user,
-            'likes_count' => $post->likes_count,
-            'is_liked' => auth()->check()
-                ? $post->likes->where('user_id', auth()->id())->isNotEmpty()
-                : false,
-            'comments' => $post->comments,
-        ]);
+        $posts = Post::with(['user', 'comments.user'])->withCount('likes')->latest()->paginate(10)->through(function ($post) {
+
+            $image = $post->image;
+
+            if ($image && !str_starts_with($image, 'http')) {
+                $image = asset('storage/' . $image);
+            }
+
+            return [
+                'id' => $post->id,
+                'user_id' => $post->user_id,
+                'content' => $post->content,
+                'image' => $post->image,
+                'create_at' => $post->created_at->diffForHumans(),
+                'user' => $image,
+                'likes_count' => $post->likes_count,
+                'is_liked' => auth()->check()
+                    ? $post->likes->where('user_id', auth()->id())->isNotEmpty()
+                    : false,
+                'comments' => $post->comments,
+            ];
+        });
 
         return Inertia::render('Home', [
             'posts' => $posts
@@ -56,7 +65,10 @@ class PostController extends Controller
                 addRandomSuffix: true // prevents files with the same name from overwriting each other
             );
 
-            $result = $client->put($filename, file_get_contents($file->getRealPath()), $options
+            $result = $client->put(
+                $filename,
+                file_get_contents($file->getRealPath()),
+                $options
             );
 
             $imagePath = $result->url;

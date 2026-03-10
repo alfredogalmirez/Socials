@@ -184,7 +184,7 @@ function PostCard({ post, authId }) {
 
             {post.image && (
                 <div className="rounded-2xl overflow-hidden border border-slate-100 mb-4">
-                    <img src={`/storage/${post.image}`} className="w-full h-auto object-cover" />
+                    <img src={post.image.startsWith('http') ? post.image : `/storage/${post.image}`} className="w-full h-auto object-cover" />
                 </div>
             )}
 
