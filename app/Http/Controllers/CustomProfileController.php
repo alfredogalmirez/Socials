@@ -80,7 +80,7 @@ class CustomProfileController extends Controller
                 }
             }
 
-            $file = $request->file('image');
+            $file = $request->file('avatar');
             $filename = 'socials/avatars/' . time() . '-' . $file->getClientOriginalName();
 
             $options = new CommonCreateBlobOptions(
