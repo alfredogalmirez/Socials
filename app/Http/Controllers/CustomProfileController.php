@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use VercelBlobPhp\Client;
+use VercelBlobPhp\CommonCreateBlobOptions;
 
 class CustomProfileController extends Controller
 {
@@ -36,7 +38,7 @@ class CustomProfileController extends Controller
 
                     $imagePath = $post->image;
 
-                    if($imagePath && !str_starts_with($imagePath, 'http')) {
+                    if ($imagePath && !str_starts_with($imagePath, 'http')) {
                         $imagePath = asset('storage/' . $imagePath);
                     }
 
@@ -69,7 +71,30 @@ class CustomProfileController extends Controller
         ]);
 
         if ($request->hasFile('avatar')) {
-            $validated['avatar'] = $request->file('avatar')->store('avatars', 'public');
+            $client = new Client();
+
+            if ($user->avatar && str_starts_with($user->avatar, 'http')) {
+                try {
+                    $client->delete($user->avatar);
+                } catch (\Exception $e) {
+                }
+            }
+
+            $file = $request->file('image');
+            $filename = 'socials/avatars/' . time() . '-' . $file->getClientOriginalName();
+
+            $options = new CommonCreateBlobOptions(
+                access: 'public',
+                addRandomSuffix: true
+            );
+
+            $result = $client->put(
+                $filename,
+                file_get_contents($file->getRealPath()),
+                $options,
+            );
+
+            $validated['avatar'] = $result->url;
         }
 
         $user->update($validated); // IDE Warning only, don't mind!
