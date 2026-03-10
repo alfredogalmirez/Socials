@@ -68,7 +68,7 @@ const Home = ({ posts }) => {
                                 <form onSubmit={submitPost}>
                                     <div className="flex items-start space-x-4">
                                         <img
-                                            src={auth.user.avatar ? `/storage/${auth.user.avatar}` : `https://ui-avatars.com/api/?name=${auth.user.name}&background=8b5cf6&color=fff`}
+                                            src={auth.user.avatar || `https://ui-avatars.com/api/?name=${auth.user.name}&background=8b5cf6&color=fff`}
                                             className="w-12 h-12 rounded-2xl object-cover"
                                         />
                                         <textarea

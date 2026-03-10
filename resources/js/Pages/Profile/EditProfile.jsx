@@ -39,7 +39,7 @@ const EditProfile = ({ user }) => {
                             <div class="md:col-span-1 bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col items-center justify-center text-center">
                                 <form onSubmit={submit} class="w-full">
                                     <div class="relative group mx-auto w-32 h-32 mb-6">
-                                        <img src={user.avatar ? `/storage/${user.avatar}` : `https://ui-avatars.com/api/?name=${user.name}`}
+                                        <img src={user.avatar || `https://ui-avatars.com/api/?name=${user.name}`}
                                             class="w-full h-full object-cover rounded-full border-4 border-slate-50 shadow-inner" />
                                         <label class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 rounded-full cursor-pointer transition-all">
                                             <span class="text-white text-xs font-bold">Change</span>

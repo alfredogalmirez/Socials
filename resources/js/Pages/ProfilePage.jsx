@@ -32,7 +32,7 @@ const ProfilePage = ({ auth, profileUser, isFollowing }) => {
                         <div className="md:col-span-1 md:row-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
                             <div className="w-32 h-32 bg-indigo-600 rounded-4xl mb-6 flex items-center justify-center text-4xl font-bold text-white shadow-xl shadow-indigo-100 rotate-3 hover:-translate-y-1 transition-transform overflow-hidden">
                                 {profileUser.avatar ? (
-                                    <img src={profileUser.avatar} className="w-full h-full object-cover" alt="" />
+                                    <img src={profileUser.avatar} className="w-full h-full object-cover" alt="Profile Picture" />
                                 ) : (
                                     <span>{profileUser.initial}</span>
                                 )}

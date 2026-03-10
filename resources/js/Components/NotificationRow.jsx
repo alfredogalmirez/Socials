@@ -13,7 +13,7 @@ const NotificationRow = ({ notification }) => {
                 {/* 1. Actor Avatar */}
                 <div className="relative">
                     <img
-                        src={notification.actor.avatar ? `/storage/${notification.actor.avatar}` : `https://ui-avatars.com/api/?name=${notification.actor.name}`}
+                        src={notification.actor.avatar || `https://ui-avatars.com/api/?name=${notification.actor.name}`}
                         className="w-12 h-12 rounded-2xl object-cover"
                     />
                     {/* Small indicator icon */}
