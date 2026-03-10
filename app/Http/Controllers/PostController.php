@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use VercelBlobPhp\CommonCreateBlobOptions;
 use VercelBlobPhp\Client;
 
 class PostController extends Controller
@@ -50,9 +51,13 @@ class PostController extends Controller
 
             $filename = 'socials/posts/' . time() . '-' . $file->getClientOriginalName();
 
-            $result = $client->put($filename, file_get_contents($file->getRealPath()), [
-                'access' => 'public'
-            ]);
+            $options = new CommonCreateBlobOptions(
+                access: 'public',
+                addRandomSuffix: true // prevents files with the same name from overwriting each other
+            );
+
+            $result = $client->put($filename, file_get_contents($file->getRealPath()), $options
+            );
 
             $imagePath = $result->url;
         }
