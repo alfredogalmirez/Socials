@@ -1,16 +1,26 @@
 <?php
+
+// 1. Force Laravel to use /tmp for all caches (Read-only filesystem workaround)
 putenv('APP_CONFIG_CACHE=/tmp/config.php');
 putenv('APP_ROUTES_CACHE=/tmp/routes.php');
 putenv('APP_SERVICES_CACHE=/tmp/services.php');
 putenv('APP_PACKAGES_CACHE=/tmp/packages.php');
 
-// Ensure the runtime has a place to write
+// 2. Create the necessary folders if they don't exist
 $storagePath = '/tmp/storage/framework';
-mkdir($storagePath . '/views', 0755, true);
-mkdir($storagePath . '/cache', 0755, true);
-mkdir($storagePath . '/sessions', 0755, true);
+$folders = [$storagePath . '/views', $storagePath . '/cache', $storagePath . '/sessions'];
 
-// Override the compiled view path in the environment
+foreach ($folders as $folder) {
+    if (!is_dir($folder)) {
+        mkdir($folder, 0755, true);
+    }
+}
+
+// 3. Set the View path specifically
 putenv("VIEW_COMPILED_PATH=$storagePath/views");
+
+// 4. Critical: Tell Laravel the storage path has moved
+// This prevents "Permission Denied" errors when Socials tries to log or cache data
+putenv("APP_STORAGE=/tmp/storage");
 
 require __DIR__ . '/../public/index.php';

@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "functions": {
     "api/*.php": {
       "runtime": "vercel-php@0.7.0"
@@ -11,6 +12,8 @@
     }
   ],
   "env": {
-    "COMPOSER_VENDOR_DIR": "/var/task/user/vendor"
+    "APP_CONFIG_CACHE": "/tmp/config.php",
+    "APP_ROUTES_CACHE": "/tmp/routes.php",
+    "VIEW_COMPILED_PATH": "/tmp/views"
   }
 }
