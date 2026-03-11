@@ -7,17 +7,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/debug-db', function () {
-    try {
-        DB::connection()->getPdo();
-        return "✅ Success! Connected to database: " . DB::connection()->getDatabaseName();
-    } catch (\Exception $e) {
-        return "❌ Connection Failed: " . $e->getMessage();
-    }
-});
 
 
 Route::middleware('auth')->group(function () {
